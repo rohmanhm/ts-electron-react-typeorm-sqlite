@@ -18,6 +18,23 @@
   <body>
     <div id="root"></div>
     <script>
+      var typeorm = require("typeorm");
+      typeorm.createConnection().then(() => {
+        var post = {
+            name: "name 1"
+
+        };
+        return typeorm.getRepository("user").save(post);
+      }).then(() => {
+        console.log("Saved successfully!");
+        return typeorm.getRepository("user").find();
+      }).then(posts => {
+        console.log("Posts: ", posts);
+      }).catch(error => {
+        console.error("Error: ", error);
+      });  
+    </script>
+    <script>
       {
         const script = document.createElement('script');
         const port = process.env.PORT || 3000;
