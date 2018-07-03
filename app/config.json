@@ -1,0 +1,12 @@
+{
+  "appTitle": "Electron React Material-ui",
+  "appName": "electron-testing",
+  "mainWidth": 1700,
+  "mainHeight": 768,
+  "mainRoutes": [
+    "Home",
+    "Counter",
+    "Users",
+    "Admin"
+  ]
+}

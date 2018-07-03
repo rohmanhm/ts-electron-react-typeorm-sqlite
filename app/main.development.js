@@ -1,3 +1,5 @@
+const db = require('./db')
+require('reflect-metadata'); // for TypeORM decorators
 const { app, BrowserWindow, Menu, shell } = require('electron');
 
 let menu;
@@ -55,6 +57,16 @@ app.on('ready', () => {
     mainWindow.on('closed', () => {
       mainWindow = null;
     });
+
+    db.userCreate({
+      name: 'Rohman'
+    })
+      .then(data => {
+        console.dir('data', data);
+      })
+      .catch(err =>
+        console.log(err)
+      );
 
     if (process.env.NODE_ENV === 'development') {
       mainWindow.openDevTools();
