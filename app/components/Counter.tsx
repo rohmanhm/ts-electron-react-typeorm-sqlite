@@ -1,8 +1,11 @@
-import * as React from 'react';
-import { RouteComponentProps } from 'react-router';
-import { Link } from 'react-router-dom';
+import * as React from 'react'
+import { RouteComponentProps } from 'react-router'
+import { Link } from 'react-router-dom'
+// import * as orm from 'typeorm'
 
-let styles = require('./Counter.scss');
+let styles = require('./Counter.scss')
+
+const orm = (window as any).typeorm
 
 export interface IProps extends RouteComponentProps<any> {
   increment(): void,
@@ -13,8 +16,21 @@ export interface IProps extends RouteComponentProps<any> {
 }
 
 export class Counter extends React.Component<IProps> {
+  async componentDidMount () {
+    try {
+      const data = {
+        name: 'Roman'
+      }
+      await orm.getRepository('user').save(data)
+      const result = await orm.getRepository('user').find()
+      console.log(result)
+    } catch (e) {
+      console.log(e)
+    }
+  }
+
   render() {
-    const { increment, incrementIfOdd, incrementAsync, decrement, counter } = this.props;
+    const { increment, incrementIfOdd, incrementAsync, decrement, counter } = this.props
     return (
       <div>
         <div className={styles.backButton} data-tid="backButton">
@@ -36,8 +52,8 @@ export class Counter extends React.Component<IProps> {
           <button className={styles.btn} onClick={() => incrementAsync()} data-tclass="btn">async</button>
         </div>
       </div>
-    );
+    )
   }
 }
 
-export default Counter;
+export default Counter
